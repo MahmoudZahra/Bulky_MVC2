@@ -3,8 +3,9 @@ using BulkyBook.DataAcess.Data;
 using Microsoft.AspNetCore.Mvc;
 using BulkyBook.DataAccess.Repository.IRepository;
 
-namespace BulkyBookWeb.Controllers
+namespace BulkyBookWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -35,7 +36,7 @@ namespace BulkyBookWeb.Controllers
             {
                 _unitOfWork.Category.Add(obj);
                 _unitOfWork.Save();
-                 TempData["success"] = "Category Created successfully";
+                TempData["success"] = "Category Created successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -64,7 +65,7 @@ namespace BulkyBookWeb.Controllers
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
-          
+
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Update(obj);
@@ -76,26 +77,26 @@ namespace BulkyBookWeb.Controllers
 
         }
 
-		public IActionResult Delete(int? id)
-		{
-			if (id == null || id == 0)
-			{
-				return NotFound();
-			}
-			Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
 
 
             if (categoryFromDb == null)
-			{
-				return NotFound();
+            {
+                return NotFound();
 
-			}
-			return View(categoryFromDb);
-		}
+            }
+            return View(categoryFromDb);
+        }
 
-		[HttpPost,ActionName("Delete")]
-		public IActionResult DeletePOST(int? id)
-		{
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
             Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
@@ -105,10 +106,10 @@ namespace BulkyBookWeb.Controllers
             _unitOfWork.Save();
             TempData["success"] = "Category Delete successfully";
             return RedirectToAction("Index");
-			
-			
 
-		}
 
-	}
+
+        }
+
+    }
 }
