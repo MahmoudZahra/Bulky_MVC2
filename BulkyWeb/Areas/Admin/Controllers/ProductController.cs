@@ -11,7 +11,7 @@ using System.Collections.Immutable;
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = SD.Role_Admin)]
+   // [Authorize(Roles = SD.Role_Admin)]
 
     public class ProductController : Controller
     {
@@ -115,22 +115,22 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
-        {
-            Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.Product.Remove(obj);
-            _unitOfWork.Save();
-            TempData["success"] = "Product Delete successfully";
-            return RedirectToAction("Index");
+        //[HttpPost, ActionName("Delete")]
+        //public IActionResult DeletePOST(int? id)
+        //{
+        //    Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
+        //    if (obj == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _unitOfWork.Product.Remove(obj);
+        //    _unitOfWork.Save();
+        //    TempData["success"] = "Product Delete successfully";
+        //    return RedirectToAction("Index");
 
 
 
-        }
+        //}
 
 
         #region API CAllS
